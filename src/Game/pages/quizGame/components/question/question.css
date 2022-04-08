@@ -1,0 +1,79 @@
+.question {
+  margin-top: 1rem;
+  padding: 1rem;
+}
+
+.question-text {
+  border-left: 5px solid #008fed;
+  padding-left: .5rem;
+  font-size: 1.2rem;
+  font-weight: bolder;
+  letter-spacing: 1px;
+  line-height: 1.6rem;
+}
+
+.answers {
+  margin-top: 1rem;
+}
+
+.action-btns-wrap {
+  display: flex;
+}
+
+.action-btn {
+  width: 100%;
+  height: 2.8rem;
+  margin-top: 2rem; 
+  color: #fef;
+  background-color: #008fed;
+  font-size: large;
+  font-weight: bold;
+  text-align: center;
+  border-radius: 5px;
+}
+
+.action-btn-text {
+  line-height: 2.8rem;
+  text-align: center;
+}
+
+.help-btn {
+  flex: 40%;
+  margin-right: 10px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.help-btn .help-chances {
+  color: #008fed;
+  background-color: white;
+  padding: 3px 6px;
+  border-radius: 50%;
+}
+
+.help-disabled {
+  background-color: gray;
+  pointer-events: none;
+  opacity: 40%;
+}
+
+.help-disabled .help-chances {
+  color: lightgray;
+}
+
+.next-btn {
+  flex: 60%;
+  margin-left: 10px;
+}
+
+@media (min-width: 600px) {
+  .answers {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .answers > div {
+    flex: 50%;
+    transform: scaleX(0.95);
+  }
+}

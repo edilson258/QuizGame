@@ -1,0 +1,49 @@
+.result-wrap {
+  width: 100%; 
+  text-align: center;
+  letter-spacing: 1px;
+}
+
+.result-header {
+  width: 100%;
+  padding: 1.5rem .2rem;
+  padding-top: 10vh;
+  background-color: #008fed;
+}
+
+.result-wrap p {
+  color: white;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.result-body {
+  margin-top: 1rem;
+  padding: 0 10vw;
+}
+
+.result-body span, small {
+  display: block;
+}
+
+.result-body span {
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+}
+
+.result-body small {
+  margin-bottom: 20px;
+  font-size: 1.2rem;
+}
+
+
+.reset-btn {
+  width: 100%;
+  color: #fff;
+  letter-spacing: 1px;
+  background-color: #008fed;
+  font-size: medium;
+  font-weight: bold;
+  height: 2.4rem;
+  border: none;
+}
