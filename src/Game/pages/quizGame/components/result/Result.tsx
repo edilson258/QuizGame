@@ -12,10 +12,10 @@ const ShowResult:FC = ():ReactElement => {
   
   const calcOfStars = (correctAnswers:number|null|undefined, totalQuestions:number|null|undefined):string => {
     const assertPercetage = correctAnswers && totalQuestions && (correctAnswers * 100) / totalQuestions
-    let stars:string = 'No stars! 😓'
-    stars = assertPercetage && assertPercetage > 0  ? '⭐' : stars
-    stars = assertPercetage && assertPercetage > 49 ? '⭐⭐' : stars
-    stars = assertPercetage && assertPercetage > 79 ? '⭐⭐⭐' : stars
+    let stars:string = "ups! no stars, try again."
+    stars = assertPercetage && assertPercetage > 1  ? "⭐" : stars
+    stars = assertPercetage && assertPercetage > 49 ? "⭐⭐": stars
+    stars = assertPercetage && assertPercetage > 79 ? "⭐⭐⭐" : stars
     
     return stars
   }
@@ -29,8 +29,13 @@ const ShowResult:FC = ():ReactElement => {
         </div>
         
         <div className="result-body container">
-          <small>{calcOfStars(correctAnswers, totalQuestions)}</small>
+          
+          <small>
+            {calcOfStars(correctAnswers, totalQuestions)}
+          </small>
+          
           <span>You've got {correctAnswers} of {totalQuestions} questions</span>
+          
           <small>Score: {score}</small>
           
           <button 

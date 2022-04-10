@@ -1,6 +1,7 @@
 import {data as questions} from '../randomdata'
 import shuffleAnswers from "../helpers/suffleAnswers";
-import {createContext, ReactNode, useReducer} from 'react'
+import {createContext, useReducer} from 'react'
+import type {ReactNode} from "react";
 
 export enum allowedActions {
   NEXT_QUESTION,
@@ -32,7 +33,7 @@ interface StateInterface {
   askedHelp:boolean;
   life:number;
   score:number;
-  showResult:boolean;
+  gameOver:boolean;
 }
 
 const initialState:StateInterface = {
@@ -46,23 +47,23 @@ const initialState:StateInterface = {
   askedHelp: false,
   life: 3,
   score: 0,
-  showResult: false,
+  gameOver: false,
 };
 
 function  QuizReducer(state:StateInterface, action:Action) {
   switch (action.type) {
     case allowedActions.NEXT_QUESTION: {
-      const showResult = (
+      const gameOver = (
         state.questions.length - 1)
           === 
         state.currentQuestionIndex 
         ? true : false
 
-      const currentQuestionIndex = showResult 
+      const currentQuestionIndex = gameOver 
         ? state.currentQuestionIndex
         : state.currentQuestionIndex + 1
       
-      const currentQuestionAnswers = showResult 
+      const currentQuestionAnswers = gameOver 
         ? [] 
         : shuffleAnswers([...state.questions.at(state.currentQuestionIndex + 1)?.wrongAnswer, state.questions.at(state.currentQuestionIndex + 1)?.correctAnswer])
 
@@ -80,14 +81,14 @@ function  QuizReducer(state:StateInterface, action:Action) {
         correctAnswer,
         selectedAnswer: null,
         askedHelp,
-        showResult,
+        gameOver,
       }
     }
 
     case allowedActions.SELECT_ANSWER: {
       const selectedAnswer = action.payload
       
-      const assertedAnswers = 
+      const assertedAnswersCount = 
         state.questions.at(state.currentQuestionIndex)?.correctAnswer 
           === 
         selectedAnswer
@@ -108,19 +109,19 @@ function  QuizReducer(state:StateInterface, action:Action) {
         ? state.life - 1
         : state.life
 
-      const showResult =
-        life <= 0 ? true : state.showResult
+      const gameOver =
+        life <= 0 ? true : state.gameOver
 
       const askedHelp = false
 
       return {
         ...state,
         selectedAnswer,
-        assertedAnswers,
+        assertedAnswersCount,
         askedHelp,
         score,
         life,
-        showResult
+        gameOver
       }
     }
 
