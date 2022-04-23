@@ -1,53 +1,51 @@
 import "./result.css"
-import {FC, ReactElement, useContext} from "react"
-import {QuizContext, allowedActions} from "../../../../contexts/QuizContext"
+import { FC, ReactElement, useContext } from "react"
+import { QuizContext, allowedActions } from "../../../../contexts/QuizContext"
+import { getStarsIcons } from "../../../../helpers/getIcons"
 
 const ShowResult:FC = ():ReactElement => {
   
   const quizContext = useContext(QuizContext)
-  const totalQuestions = quizContext?.state.questions.length
-  const correctAnswers = quizContext?.state.assertedAnswersCount
-  const score = quizContext?.state.score 
   const dispatch = quizContext?.dispatch
-  
-  const calcOfStars = (correctAnswers:number|null|undefined, totalQuestions:number|null|undefined):string => {
-    const assertPercetage = correctAnswers && totalQuestions && (correctAnswers * 100) / totalQuestions
-    let stars:string = "ups! no stars, try again."
-    stars = assertPercetage && assertPercetage > 1  ? "⭐" : stars
-    stars = assertPercetage && assertPercetage > 49 ? "⭐⭐": stars
-    stars = assertPercetage && assertPercetage > 79 ? "⭐⭐⭐" : stars
-    
-    return stars
+
+  const totalQuestions = quizContext!.state.questions.length
+  const correctAnswers = quizContext!.state.assertedAnswersCount
+  const score = quizContext?.state.score 
+ 
+  const calcAssertPercetage = () => {
+    const assertPercetage = (correctAnswers * 100) / totalQuestions
+    return assertPercetage
   }
 
   return (
-    <>
-      <div className="result-wrap">
-        
-        <div className="result-header">
-          <p>Congratulations 👏👏👏</p>
-        </div>
-        
-        <div className="result-body container">
-          
-          <small>
-            {calcOfStars(correctAnswers, totalQuestions)}
-          </small>
-          
-          <span>You've got {correctAnswers} of {totalQuestions} questions</span>
-          
-          <small>Score: {score}</small>
-          
-          <button 
-            className="reset-btn"
-            onClick={() => dispatch && dispatch({type:allowedActions.RESET_GAME, payload:null})}
-          >
-            Play Again
-          </button>
-
-        </div>
+    <div className="result-wrap">
+      
+      <div className="result-header">
+        <p>Parabéns 👏👏👏</p>
       </div>
-    </>
+      
+      <div className="result-body container">
+        
+        <small className="stars-wrap">
+          {getStarsIcons(calcAssertPercetage())}
+        </small>
+        
+        <div className="score-wrap">
+          <small>Score: </small>
+          <small className="score-amount">{score}</small>
+        </div>
+
+        <span>Acertou {correctAnswers} de {totalQuestions} questões</span>
+        
+        <button 
+          className="reset-btn"
+          onClick={() => dispatch && dispatch({type:allowedActions.RESET_GAME, payload:null})}
+        >
+          Novo jogo
+        </button>
+
+      </div>
+    </div>
   )
 }
 

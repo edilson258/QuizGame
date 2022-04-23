@@ -1,18 +1,22 @@
-import './question.css';
-import Answer from '../answer/Answer';
-import {useContext} from "react";
-import {FC, ReactElement} from "react";
-import {QuizContext, allowedActions} from "../../../../contexts/QuizContext";
+import "./question.css"
+import Answer from "../answer/Answer"
+import { useContext } from "react"
+import { FC, ReactElement } from "react"
+import { QuizContext, allowedActions } from "../../../../contexts/QuizContext"
 
 const Question:FC = ():ReactElement => {
+  
   const quizContext = useContext(QuizContext);
+  
+  const dispatch = quizContext?.dispatch
+  
   const currentQuestion = quizContext?.state.questions[quizContext.state.currentQuestionIndex]
   const answers = quizContext?.state.currentQuestionAnswers
-  const dispatch = quizContext?.dispatch
   const selectedAnswer = quizContext?.state.selectedAnswer
   const correctAnswer = quizContext?.state.correctAnswer
   const helpChances = quizContext!.state.helpChances
   const askedHelp = quizContext?.state.askedHelp
+  
   const helpDisabled = helpChances <= 0 
     ? "help-disabled disabled" 
     : null 
@@ -43,11 +47,12 @@ const Question:FC = ():ReactElement => {
         </div>
         
         <div className="action-btns-wrap">
+          
           <div
             className={`help-btn action-btn ${helpDisabled}`}
             onClick={() => dispatch && dispatch({type:allowedActions.ASK_HELP, payload:null})}
           >
-            <span className="action-btn-text">Help</span>
+            <span className="action-btn-text">Ajuda</span>
             <span className="help-chances">{helpChances}</span>
           </div>
 
@@ -55,8 +60,9 @@ const Question:FC = ():ReactElement => {
             className="next-btn action-btn"
             onClick={() => dispatch && dispatch({type:allowedActions.NEXT_QUESTION, payload:null})}
           >
-            <span className="action-btn-text">Next Question</span>
+            <span className="action-btn-text">Próxima questão</span>
           </div>
+
         </div>
       </div>
     </>

@@ -1,31 +1,24 @@
 import "./header.css"
-import {QuizContext} from "../../../../contexts/QuizContext"
-import {FC, ReactElement, useContext} from "react"
+import { QuizContext } from "../../../../contexts/QuizContext"
+import { FC, ReactElement, useContext } from "react"
+import { getLifeIcons } from "../../../../helpers/getIcons"
 
-const Header:FC = ():ReactElement => {
+const Header:FC = (): ReactElement => {
   
   const quizContext = useContext(QuizContext)
+  
   const score = quizContext?.state.score
   const totalQuestions = quizContext?.state.questions.length 
   const currentQuestionIndex = quizContext?.state.currentQuestionIndex
   const currentQuestionIndexShow = currentQuestionIndex! + 1 
-  const life = quizContext?.state.life
-
-  const calcOfLife = (life:number|undefined):string => {
-    switch (life) {
-      case 3: return "❤️❤️❤️"
-      case 2: return "❤️❤️"
-      case 1: return "❤️"
-      default: return ""
-    }
-  }
+  const life = quizContext!.state.life
 
   return (
     <>
       <div className="header">
         <span className="score">Score: <span className="score-amount">{score}</span></span>
         <span className="index">Question {currentQuestionIndexShow} of {totalQuestions}</span>
-        <span className="score" style={{marginTop: ".5rem"}}>{calcOfLife(life)}</span>
+        <span className="score" style={{marginTop: ".5rem"}}>{getLifeIcons(life)}</span>
       </div>
     </>
   )

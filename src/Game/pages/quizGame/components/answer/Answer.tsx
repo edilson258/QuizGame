@@ -11,6 +11,7 @@ interface AnswerProps {
 }
 
 const Answer:FC<AnswerProps> = ({answer, index, onSelectAnswer, selectedAnswer, correctAnswer, askedHelp}):ReactElement => {
+  
   const answerLetterMapping:Array<string> = ['A', 'B', 'C', 'D']
   const isCorrect = 
     selectedAnswer 
