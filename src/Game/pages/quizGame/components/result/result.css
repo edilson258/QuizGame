@@ -38,6 +38,8 @@
 
 
 .reset-btn {
+  margin-top: 3rem;
+  margin-bottom: 1rem;
   width: 100%;
   color: #fff;
   letter-spacing: 1px;
@@ -47,3 +49,17 @@
   height: 2.4rem;
   border: none;
 }
+
+
+.score-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.score-amount {
+  font-weight: bolder;
+  color: #008fed;
+  margin-left: .5rem;
+}
+

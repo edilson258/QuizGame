@@ -1,0 +1,10 @@
+.heart-icon {
+  color: red;
+  margin: 0 .3rem;
+}
+
+.star-icon {
+  font-size: 1.7rem;
+  margin: 0 .2rem;
+  color: #008fed;
+}

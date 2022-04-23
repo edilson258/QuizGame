@@ -1,7 +1,7 @@
-import {data as questions} from '../randomdata'
-import shuffleAnswers from "../helpers/suffleAnswers";
-import {createContext, useReducer} from 'react'
-import type {ReactNode} from "react";
+import { Questions as questions } from "../randomdata"
+import shuffleAnswers from "../helpers/suffleAnswers"
+import { createContext, useReducer } from 'react'
+import type { ReactNode } from "react"
 
 export enum allowedActions {
   NEXT_QUESTION,
@@ -9,21 +9,19 @@ export enum allowedActions {
   RESET_GAME,
   ASK_HELP,
 }
-export type Action = {
-  type:allowedActions,
-  payload:string|null
-}
+export type Action = { type:allowedActions, payload:string|null }
 export type Dispatch = (action:Action) => void
-export const QuizContext = 
-  createContext<
-    {
-      state:StateInterface; 
-      dispatch:Dispatch
-    } | null 
->(null)
+export const QuizContext = createContext<{ state:StateInterface; dispatch:Dispatch } | null >(null)
+
+interface Question {
+  id:number;
+  question:string;
+  correctAnswer:string;
+  wrongAnswers:Array<string>
+}
 
 interface StateInterface {
-  questions:Array<any>;
+  questions:Array<Question>;
   currentQuestionIndex:number;
   currentQuestionAnswers:Array<string>;
   correctAnswer:string|undefined;
@@ -39,7 +37,7 @@ interface StateInterface {
 const initialState:StateInterface = {
   questions,
   currentQuestionIndex: 0,
-  currentQuestionAnswers: shuffleAnswers([...questions.at(0)!.wrongAnswer, questions.at(0)!.correctAnswer]),
+  currentQuestionAnswers: shuffleAnswers([...questions.at(0)!.wrongAnswers, questions.at(0)!.correctAnswer]),
   correctAnswer: questions.at(0)?.correctAnswer, 
   selectedAnswer: null,
   assertedAnswersCount: 0,
@@ -65,7 +63,7 @@ function  QuizReducer(state:StateInterface, action:Action) {
       
       const currentQuestionAnswers = gameOver 
         ? [] 
-        : shuffleAnswers([...state.questions.at(state.currentQuestionIndex + 1)?.wrongAnswer, state.questions.at(state.currentQuestionIndex + 1)?.correctAnswer])
+        : shuffleAnswers([...state.questions.at(state.currentQuestionIndex + 1)!.wrongAnswers, state.questions.at(state.currentQuestionIndex + 1)!.correctAnswer])
 
       const correctAnswer = 
         state.questions
@@ -112,13 +110,12 @@ function  QuizReducer(state:StateInterface, action:Action) {
       const gameOver =
         life <= 0 ? true : state.gameOver
 
-      const askedHelp = false
 
       return {
         ...state,
         selectedAnswer,
         assertedAnswersCount,
-        askedHelp,
+        askedHelp: false,
         score,
         life,
         gameOver
@@ -137,12 +134,10 @@ function  QuizReducer(state:StateInterface, action:Action) {
         ? state.helpChances - 1
         : state.helpChances
 
-      const askedHelp = true
-
       return {
         ...state,
         helpChances,
-        askedHelp
+        askedHelp: true
       }
     }
 
@@ -153,6 +148,7 @@ function  QuizReducer(state:StateInterface, action:Action) {
 }
 
 export const QuizProvider = ({children}:{children:ReactNode}) => {
+  
   const [state, dispatch] = useReducer(QuizReducer, initialState)
   
   return(
