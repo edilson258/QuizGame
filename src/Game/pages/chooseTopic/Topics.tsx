@@ -34,8 +34,9 @@ const SingleTopic:FC<SingleTopicProps> = (props):ReactElement => {
 }
 
 const Topics:FC = ():ReactElement => {
+  
   const universalContext = useContext(UniversalContext)
-  const setSelectedTopics = universalContext?.setSelectedTopics
+  const setSelectedTopics = universalContext!.setSelectedTopics
   
   const [avalibleTopics, setAvalibleTopics] = useState<Array<TopicInterface>>([])
   useEffect(() => {
@@ -55,7 +56,8 @@ const Topics:FC = ():ReactElement => {
     const newSelectedTopics = avalibleTopics.filter(topic => {
       return topic.isSelected
     })
-    setSelectedTopics && setSelectedTopics(newSelectedTopics)
+    
+    setSelectedTopics(newSelectedTopics)
   }
   
   const selectedTopicsCount = avalibleTopics

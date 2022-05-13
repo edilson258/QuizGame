@@ -48,6 +48,11 @@ const initialState:StateInterface = {
   gameOver: false,
 };
 
+function getScore() {
+  const score:number = Math.floor(Math.random() * (200 - 100) + 100)
+  return score
+}
+
 function  QuizReducer(state:StateInterface, action:Action) {
   switch (action.type) {
     case allowedActions.NEXT_QUESTION: {
@@ -97,8 +102,9 @@ function  QuizReducer(state:StateInterface, action:Action) {
         state.questions.at(state.currentQuestionIndex)?.correctAnswer 
           === 
         selectedAnswer
-        ? state.score + 100
+        ? state.score + getScore()
         : state.score
+
       
       const life = 
         state.questions.at(state.currentQuestionIndex)?.correctAnswer 
