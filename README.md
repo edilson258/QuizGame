@@ -12,6 +12,7 @@ It is a simple game. where the player has one question with four answers but onl
 
 # Installation
 
+
 * 1 - > git clone Ihttps://github.com/edilson258/QuizGame.git
 * 2 - > cd QuizGame
 * 3 - > yarn install
@@ -19,6 +20,9 @@ It is a simple game. where the player has one question with four answers but onl
 
 # Future of the project
 
+<copy-button>
+Hi
+</copy-button>
 * Allow multiple topics 
 * Add a route to allow user choose a topic
 * Save the progress of the user
