@@ -1,4 +1,4 @@
-# Quiz Game with ReactJs & TypeScript.
+# Quiz Game with ReactJs & TypeScript (My failed attempt to became a Frontend dev Lol 😆)
 
 ![IMG_20220424_123028](https://user-images.githubusercontent.com/101186072/164972232-3e71be81-f14f-4b1e-9704-7616a88c6a79.jpg)
 
